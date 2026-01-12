@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.myapp.controllers.UserManagementController">
+   <children>
+      <HBox alignment="CENTER_LEFT" spacing="20.0">
+         <children>
+            <Label text="Gestion des Utilisateurs" textFill="#2c3e50">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Region HBox.hgrow="ALWAYS" />
+            <Button fx:id="btnBack" mnemonicParsing="false" onAction="#onBack" text="Retour" />
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </HBox>
+      
+      <HBox alignment="CENTER_LEFT" spacing="10.0">
+         <children>
+            <Label text="Filtrer par rôle:" />
+            <ComboBox fx:id="roleFilterCombo" prefWidth="150.0" />
+            <Button fx:id="btnRefresh" mnemonicParsing="false" onAction="#onRefresh" text="Actualiser" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="20.0" right="20.0" />
+         </padding>
+      </HBox>
+
+      <TableView fx:id="usersTable" VBox.vgrow="ALWAYS">
+        <columns>
+          <TableColumn fx:id="colId" prefWidth="50.0" text="ID" />
+          <TableColumn fx:id="colFirstName" prefWidth="100.0" text="Prénom" />
+          <TableColumn fx:id="colLastName" prefWidth="100.0" text="Nom" />
+          <TableColumn fx:id="colUsername" prefWidth="120.0" text="Username" />
+          <TableColumn fx:id="colEmail" prefWidth="180.0" text="Email" />
+          <TableColumn fx:id="colRole" prefWidth="80.0" text="Rôle" />
+          <TableColumn fx:id="colActive" prefWidth="80.0" text="Actif" />
+          <TableColumn fx:id="colLastLogin" prefWidth="150.0" text="Dernière connexion" />
+        </columns>
+         <VBox.margin>
+            <Insets bottom="10.0" left="20.0" right="20.0" />
+         </VBox.margin>
+      </TableView>
+
+      <HBox alignment="CENTER_LEFT" spacing="10.0">
+         <children>
+            <Button fx:id="btnDeactivateUser" mnemonicParsing="false" onAction="#onDeactivateUser" text="Désactiver utilisateur" />
+            <Button fx:id="btnActivateUser" mnemonicParsing="false" onAction="#onActivateUser" text="Activer utilisateur" />
+            <Button fx:id="btnChangeRole" mnemonicParsing="false" onAction="#onChangeRole" text="Changer rôle" />
+            <Button fx:id="btnDeleteUser" mnemonicParsing="false" onAction="#onDeleteUser" text="Supprimer utilisateur" styleClass="danger-button" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label fx:id="statusLabel" text="" textFill="#27ae60" />
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+         </padding>
+      </HBox>
+   </children>
+</VBox>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.myapp.controllers.ScoreboardController">
+    <top>
+        <HBox spacing="12" alignment="CENTER">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+            <Label text="Sort by:" />
+            <ComboBox fx:id="sortCombo" prefWidth="150" />
+            <Label text="Filter by player:" />
+            <ComboBox fx:id="playerFilterCombo" promptText="All players" prefWidth="150" />
+            <Label text="Filter by theme:" />
+            <ComboBox fx:id="themeFilterCombo" promptText="All themes" prefWidth="150" />
+        </HBox>
+    </top>
+    <center>
+        <TableView fx:id="table">
+            <columns>
+                <TableColumn fx:id="colPlayer" text="Player" />
+                <TableColumn fx:id="colTheme" text="Theme" />
+                <TableColumn fx:id="colAttempts" text="Attempts" />
+                <TableColumn fx:id="colTime" text="Time (s)" />
+                <TableColumn fx:id="colDate" text="Played At" />
+            </columns>
+        </TableView>
+    </center>
+    <bottom>
+        <HBox spacing="12">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+            <Button fx:id="btnDelete" text="Delete Selected" onAction="#onDeleteScore" styleClass="danger-button" />
+            <Button fx:id="btnBack" text="Back" onAction="#onBack" />
+        </HBox>
+    </bottom>
+</BorderPane>

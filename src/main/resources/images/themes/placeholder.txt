@@ -1,0 +1,8 @@
+Ce dossier contient les images des thèmes.
+Les images par défaut seront :
+- numbers.png
+- colors.png  
+- animals.png
+- images.png
+
+Les nouvelles images ajoutées par l'admin seront stockées ici.

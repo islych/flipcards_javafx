@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="1080" prefWidth="1920" spacing="30" styleClass="home-root" 
+      xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25" 
+      fx:controller="com.myapp.controllers.HomeController">
+    <padding>
+        <Insets bottom="50" left="50" right="50" top="50" />
+    </padding>
+    
+    <!-- En-tête avec bienvenue -->
+    <Label fx:id="welcomeLabel" styleClass="welcome-label" text="Bienvenue !">
+        <font>
+            <Font name="System Bold" size="48.0" />
+        </font>
+    </Label>
+    
+    <!-- Panneau principal centré -->
+    <VBox fx:id="formBox" alignment="CENTER" prefWidth="600" spacing="25" styleClass="home-panel">
+        
+        <!-- Logo et titre -->
+        <HBox alignment="CENTER" spacing="20" styleClass="title-row">
+            <ImageView fx:id="logoView" fitHeight="80" fitWidth="80" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="titleLabel" text="Memory Game" styleClass="game-title" />
+        </HBox>
+
+        <!-- Sélection utilisateur (masqué pour utilisateurs connectés) -->
+        <HBox fx:id="userSelectionRow" alignment="CENTER" spacing="15" styleClass="input-row">
+            <Label styleClass="form-label" text="Player:" />
+            <ComboBox fx:id="userCombo" prefWidth="250" promptText="Select a player" />
+            <Button fx:id="btnNewUser" onAction="#onNewUser" styleClass="small-button" text="New Player" />
+        </HBox>
+
+        <!-- Formulaire nouveau joueur -->
+        <GridPane fx:id="newUserForm" hgap="15" vgap="15" visible="false" styleClass="new-user-form">
+            <Label styleClass="form-label" text="First Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <TextField fx:id="firstNameField" promptText="First name" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+            <Label styleClass="form-label" text="Last Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <TextField fx:id="lastNameField" promptText="Last name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+            <HBox spacing="15" GridPane.columnSpan="2" GridPane.rowIndex="2" alignment="CENTER">
+                <Button fx:id="btnSaveUser" onAction="#onSaveUser" styleClass="small-button" text="Save Player" />
+                <Button fx:id="btnCancelUser" onAction="#onCancelUser" styleClass="small-button" text="Cancel" />
+            </HBox>
+            <columnConstraints>
+                <ColumnConstraints />
+                <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+            </rowConstraints>
+        </GridPane>
+
+        <!-- Sélection thème et grille -->
+        <HBox alignment="CENTER" spacing="15" styleClass="input-row">
+            <Label styleClass="form-label" text="Theme:" />
+            <ComboBox fx:id="themeCombo" prefWidth="350" />
+        </HBox>
+        
+        <HBox alignment="CENTER" spacing="15" styleClass="input-row">
+            <Label styleClass="form-label" text="Grid Size:" />
+            <ComboBox fx:id="gridSizeCombo" prefWidth="350" />
+        </HBox>
+        
+        <!-- Boutons de contrôle -->
+        <HBox alignment="CENTER" spacing="20" styleClass="controls-row">
+            <Button fx:id="btnStart" onAction="#onStart" styleClass="primary-button" text="Start Game" />
+            <Button fx:id="btnScores" onAction="#onShowScores" styleClass="secondary-button" text="High Scores" />
+        </HBox>
+        
+        <!-- Boutons administrateur et profil -->
+        <HBox alignment="CENTER" spacing="15" styleClass="admin-row">
+            <Button fx:id="btnManagePlayers" onAction="#onManagePlayers" styleClass="secondary-button" text="Manage Players" />
+            <Button fx:id="btnProfile" onAction="#onProfile" styleClass="secondary-button" text="Profile" />
+            <Button fx:id="btnAdminPanel" onAction="#onAdminPanel" styleClass="admin-button" text="Administration" />
+        </HBox>
+        
+        <!-- Bouton déconnexion -->
+        <Button fx:id="btnLogout" onAction="#onLogout" styleClass="logout-button" text="Logout" />
+    </VBox>
+</VBox>

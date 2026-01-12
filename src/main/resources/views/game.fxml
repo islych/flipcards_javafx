@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.myapp.controllers.GameController" 
+            styleClass="fullscreen-game" prefWidth="1920" prefHeight="1080">
+    
+    <!-- Header avec informations du jeu -->
+    <top>
+        <HBox spacing="40" alignment="CENTER" styleClass="game-header">
+            <padding>
+                <Insets top="20" right="40" bottom="20" left="40" />
+            </padding>
+            <Label fx:id="lblAttempts" text="Attempts: 0" styleClass="game-info-label" />
+            <Label fx:id="lblTime" text="Time: 0s" styleClass="game-info-label" />
+        </HBox>
+    </top>
+    
+    <!-- Zone de jeu centrée -->
+    <center>
+        <VBox alignment="CENTER" styleClass="game-container" spacing="0">
+            <StackPane styleClass="game-area">
+                <GridPane fx:id="grid" styleClass="grid-pane" alignment="CENTER" />
+            </StackPane>
+        </VBox>
+    </center>
+    
+    <!-- Contrôles en bas -->
+    <bottom>
+        <HBox spacing="40" alignment="CENTER" styleClass="game-controls">
+            <padding>
+                <Insets top="20" right="40" bottom="30" left="40" />
+            </padding>
+            <Button fx:id="btnNew" text="New Game" onAction="#onNewGame" styleClass="game-button" />
+            <Button fx:id="btnBack" text="Back to Menu" onAction="#onBack" styleClass="game-button" />
+        </HBox>
+    </bottom>
+    
+</BorderPane>
