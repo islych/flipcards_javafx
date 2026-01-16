@@ -207,17 +207,17 @@ public class GameController {
         int cols = gridCols;
         buttons = new Button[size];
         
-        // Configurer l'espacement optimal selon la taille de grille
-        double spacing = 20;
-        if (rows >= 6 || cols >= 6) {
-            spacing = 15;
-        } else if (rows >= 5 || cols >= 5) {
-            spacing = 18;
-        }
+        // Configurer l'espacement optimal - FORCER l'espacement dès le début
+        double spacing = 25; // Espacement constant entre les cartes
         
+        // IMPORTANT: Appliquer l'espacement AVANT d'ajouter les cartes
         grid.setHgap(spacing);
         grid.setVgap(spacing);
         grid.setAlignment(javafx.geometry.Pos.CENTER);
+        
+        // Forcer la mise à jour du layout pour appliquer l'espacement immédiatement
+        grid.autosize();
+        grid.requestLayout();
         
         // Créer et placer les cartes
         int index = 0;
@@ -225,11 +225,19 @@ public class GameController {
             for (int c = 0; c < cols; c++) {
                 if (index >= size) break;
                 Button b = createCardButton(index);
+                
+                // Ajouter une marge supplémentaire à chaque carte pour garantir l'espacement
+                GridPane.setMargin(b, new Insets(5, 5, 5, 5));
+                
                 grid.add(b, c, r);
                 buttons[index] = b;
                 index++;
             }
         }
+        
+        // Forcer une nouvelle mise à jour du layout après ajout des cartes
+        grid.autosize();
+        grid.requestLayout();
         
         // Réinitialiser les labels
         lblAttempts.setText("Attempts: 0");
@@ -251,29 +259,45 @@ public class GameController {
         
         // Taille adaptative selon la grille pour optimiser l'espace écran
         int cardWidth = 120;
-        int cardHeight = 160;
+        int cardHeight = 120; // Cartes carrées pour un meilleur rendu
         
         // Ajuster la taille selon la grille
         if (gridRows >= 6 || gridCols >= 6) {
             cardWidth = 100;
-            cardHeight = 140;
+            cardHeight = 100;
         } else if (gridRows >= 5 || gridCols >= 5) {
             cardWidth = 110;
-            cardHeight = 150;
+            cardHeight = 110;
         }
         
         b.setPrefSize(cardWidth, cardHeight);
         b.setMinSize(cardWidth, cardHeight);
         b.setMaxSize(cardWidth, cardHeight);
-        b.getStyleClass().add("card-button");
+        
+        // Ajouter les classes CSS pour une meilleure visibilité
+        b.getStyleClass().addAll("card-button", "face-down");
 
         if (cardBackImage != null) {
             ImageView backView = new ImageView(cardBackImage);
-            backView.setFitWidth(cardWidth - 20);
-            backView.setFitHeight(cardHeight - 20);
-            backView.setPreserveRatio(true);
+            // L'image doit remplir COMPLÈTEMENT la carte comme une couverture
+            backView.setFitWidth(cardWidth); // Remplir toute la largeur
+            backView.setFitHeight(cardHeight); // Remplir toute la hauteur
+            backView.setPreserveRatio(false); // IMPORTANT: Ne pas préserver le ratio pour remplir exactement
+            backView.setSmooth(true); // Améliorer la qualité
+            
+            // Créer un clip rectangulaire avec coins arrondis pour l'image
+            Rectangle clip = new Rectangle(cardWidth, cardHeight);
+            clip.setArcWidth(24); // Coins arrondis comme la carte (12px radius * 2)
+            clip.setArcHeight(24);
+            backView.setClip(clip);
+            
+            // Configurer le bouton pour afficher seulement l'image
             b.setGraphic(backView);
             b.setText("");
+            b.setContentDisplay(javafx.scene.control.ContentDisplay.GRAPHIC_ONLY);
+            
+            // Forcer le bouton à ne pas avoir de padding
+            b.setStyle("-fx-padding: 0; -fx-background-insets: 0; -fx-border-insets: 0;");
         } else {
             b.setText("?");
             b.setStyle("-fx-font-size: " + (cardWidth / 4) + "px; -fx-font-weight: bold;");
@@ -321,8 +345,14 @@ public class GameController {
             } else if ("Animals".equalsIgnoreCase(currentThemeName) || "Images".equalsIgnoreCase(currentThemeName)) {
                 b.setText("");
                 ImageView iv = loadAnimalImage(c.getValue());
-                if (iv != null) b.setGraphic(iv);
-                else b.setText(c.getValue());
+                if (iv != null) {
+                    b.setGraphic(iv);
+                    // Forcer le bouton à ne pas avoir de padding pour que l'image remplisse complètement
+                    b.setStyle("-fx-padding: 0; -fx-background-insets: 0; -fx-border-insets: 0;");
+                    b.setContentDisplay(javafx.scene.control.ContentDisplay.GRAPHIC_ONLY);
+                } else {
+                    b.setText(c.getValue());
+                }
             } else {
                 b.setText(c.getValue());
             }
@@ -332,6 +362,16 @@ public class GameController {
         if (result == 1) {
             // matched - leave revealed
             lblAttempts.setText("Attempts: " + gameService.getAttempts());
+            
+            // Marquer toutes les cartes appariées avec la classe CSS appropriée
+            for (int i = 0; i < deck.size(); i++) {
+                if (deck.get(i).isMatched()) {
+                    Button matchedButton = buttons[i];
+                    matchedButton.getStyleClass().removeAll("flipped", "face-down");
+                    matchedButton.getStyleClass().add("matched");
+                }
+            }
+            
             if (gameService.isFinished()) onGameFinished();
             b.setDisable(false);
         } else if (result == -1) {
@@ -368,6 +408,16 @@ public class GameController {
             // Enlever l'image de dos avant d'afficher le contenu
             b.setGraphic(null);
             b.setText("");
+            // Changer la classe CSS pour carte retournée TOUT EN GARDANT LES COINS ARRONDIS
+            b.getStyleClass().removeAll("face-down");
+            b.getStyleClass().add("flipped");
+            
+            // IMPORTANT: Forcer le maintien des coins arrondis
+            String currentStyle = b.getStyle();
+            if (!currentStyle.contains("-fx-background-radius")) {
+                b.setStyle(currentStyle + "; -fx-background-radius: 12px; -fx-border-radius: 12px;");
+            }
+            
             try { onHalfShown.run(); } catch (Exception ex) { }
             rt2.play();
         });
@@ -408,19 +458,42 @@ public class GameController {
 
         rt1.setOnFinished(e -> {
             b.setText("");
+            // Remettre la classe CSS pour carte face cachée
+            b.getStyleClass().removeAll("flipped", "matched");
+            b.getStyleClass().add("face-down");
+            
             if (cardBackImage != null) {
                 ImageView backView = new ImageView(cardBackImage);
-                backView.setFitWidth(120);  // Image plus grande
-                backView.setFitHeight(160); // Image plus grande
-                backView.setPreserveRatio(true);
+                // Utiliser les mêmes dimensions que dans createCardButton
+                int cardSize = 120; // Cartes carrées
+                if (gridRows >= 6 || gridCols >= 6) {
+                    cardSize = 100;
+                } else if (gridRows >= 5 || gridCols >= 5) {
+                    cardSize = 110;
+                }
+                
+                backView.setFitWidth(cardSize);
+                backView.setFitHeight(cardSize);
+                backView.setPreserveRatio(false); // Forcer l'image à remplir exactement l'espace
+                backView.setSmooth(true);
+                
+                // IMPORTANT: Maintenir les coins arrondis pour l'image de dos
+                Rectangle clip = new Rectangle(cardSize, cardSize);
+                clip.setArcWidth(24); // Coins arrondis comme la carte
+                clip.setArcHeight(24);
+                backView.setClip(clip);
+                
                 b.setGraphic(backView);
             } else {
                 b.setText("?");
-                b.setStyle("-fx-font-size: 36px; -fx-font-weight: bold;"); // Texte plus grand
+                b.setStyle("-fx-font-size: 36px; -fx-font-weight: bold;");
             }
 
-            // Supprimer les styles inline pour utiliser les styles CSS
-            b.setStyle("");
+            // IMPORTANT: Forcer le maintien des coins arrondis même après reset
+            String currentStyle = b.getStyle();
+            if (!currentStyle.contains("-fx-background-radius")) {
+                b.setStyle(currentStyle + "; -fx-background-radius: 12px; -fx-border-radius: 12px;");
+            }
 
             rt2.play();
         });
@@ -431,9 +504,23 @@ public class GameController {
 
 
     private Rectangle createColorRectangle(String colorName) {
-        Rectangle rect = new Rectangle(110, 110); // Rectangle plus grand
+        // Taille adaptée aux cartes carrées
+        int rectSize = 110;
+        if (gridRows >= 6 || gridCols >= 6) {
+            rectSize = 90;
+        } else if (gridRows >= 5 || gridCols >= 5) {
+            rectSize = 100;
+        }
+        
+        Rectangle rect = new Rectangle(rectSize, rectSize);
         rect.setFill(Color.web(getColorHex(colorName)));
-        rect.setStyle("-fx-stroke: #333; -fx-stroke-width: 3;"); // Bordure plus épaisse
+        rect.setStroke(Color.BLACK);
+        rect.setStrokeWidth(4); // Bordure plus épaisse pour la visibilité
+        
+        // IMPORTANT: Ajouter des coins arrondis au rectangle de couleur
+        rect.setArcWidth(24); // Coins arrondis comme la carte
+        rect.setArcHeight(24);
+        
         return rect;
     }
     private ImageView loadAnimalImage(String animalName) {
@@ -449,9 +536,32 @@ public class GameController {
 
             Image img = new Image(resource.toExternalForm());
             ImageView iv = new ImageView(img);
-            iv.setFitWidth(120); // Images plus grandes
-            iv.setFitHeight(120); // Images plus grandes
-            iv.setPreserveRatio(true);
+            
+            // Taille exacte de la carte pour remplir complètement comme cardback.png
+            int cardWidth = 120;
+            int cardHeight = 120;
+            
+            // Ajuster selon la grille (même logique que createCardButton)
+            if (gridRows >= 6 || gridCols >= 6) {
+                cardWidth = 100;
+                cardHeight = 100;
+            } else if (gridRows >= 5 || gridCols >= 5) {
+                cardWidth = 110;
+                cardHeight = 110;
+            }
+            
+            // IMPORTANT: Remplir exactement la carte comme l'image de dos
+            iv.setFitWidth(cardWidth);
+            iv.setFitHeight(cardHeight);
+            iv.setPreserveRatio(false); // Ne pas préserver le ratio pour remplir exactement
+            iv.setSmooth(true);
+            
+            // Créer un clip rectangulaire avec coins arrondis pour l'image
+            Rectangle clip = new Rectangle(cardWidth, cardHeight);
+            clip.setArcWidth(24); // Coins arrondis comme la carte (12px radius * 2)
+            clip.setArcHeight(24);
+            iv.setClip(clip);
+            
             return iv;
         } catch (Exception e) {
             System.err.println("Erreur de chargement: " + e.getMessage());
@@ -493,21 +603,34 @@ public class GameController {
         int time = gameService.getElapsedSeconds();
         int attempts = gameService.getAttempts();
         
-        // Créer et sauvegarder le score avec les nouvelles relations UML
-        Score score = new Score(currentUser, currentTheme, attempts, time);
-        boolean saved = scoreService.saveScore(score);
+        // Vérifier si l'utilisateur est un invité
+        String isGuestStr = System.getProperty("isGuest");
+        boolean isGuest = "true".equals(isGuestStr);
         
-        if (saved) {
-            System.out.println("Score sauvegardé: " + score);
+        if (!isGuest && currentUser.getId() != -1) {
+            // Créer et sauvegarder le score seulement pour les utilisateurs authentifiés
+            Score score = new Score(currentUser, currentTheme, attempts, time);
+            boolean saved = scoreService.saveScore(score);
+            
+            if (saved) {
+                System.out.println("Score sauvegardé: " + score);
+            } else {
+                System.err.println("Erreur lors de la sauvegarde du score");
+            }
+            
+            // Afficher le tableau des scores après un court délai pour les utilisateurs authentifiés
+            new Thread(() -> {
+                try { Thread.sleep(500); } catch (InterruptedException ignored) {}
+                Platform.runLater(() -> SceneManager.show("scoreboard"));
+            }).start();
         } else {
-            System.err.println("Erreur lors de la sauvegarde du score");
+            // Pour les invités, afficher un message et retourner à l'accueil
+            System.out.println("Jeu terminé en mode invité - pas de sauvegarde de score");
+            new Thread(() -> {
+                try { Thread.sleep(1000); } catch (InterruptedException ignored) {}
+                Platform.runLater(() -> SceneManager.show("home"));
+            }).start();
         }
-        
-        // Afficher le tableau des scores après un court délai
-        new Thread(() -> {
-            try { Thread.sleep(500); } catch (InterruptedException ignored) {}
-            Platform.runLater(() -> SceneManager.show("scoreboard"));
-        }).start();
     }
 
     @FXML

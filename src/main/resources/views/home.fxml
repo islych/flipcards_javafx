@@ -87,7 +87,7 @@
         <HBox alignment="CENTER" spacing="15" styleClass="admin-row">
             <Button fx:id="btnManagePlayers" onAction="#onManagePlayers" styleClass="secondary-button" text="Manage Players" />
             <Button fx:id="btnProfile" onAction="#onProfile" styleClass="secondary-button" text="Profile" />
-            <Button fx:id="btnAdminPanel" onAction="#onAdminPanel" styleClass="admin-button" text="Administration" />
+            <Button fx:id="btnAdminPanel" onAction="#onAdminPanel" styleClass="admin-button" text="Panneau Admin" visible="false" managed="false" />
         </HBox>
         
         <!-- Bouton déconnexion -->

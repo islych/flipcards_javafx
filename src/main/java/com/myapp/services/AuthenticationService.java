@@ -1,6 +1,7 @@
 package com.myapp.services;
 
 import com.myapp.dao.UserAuthDAO;
+import com.myapp.models.LoginResult;
 import com.myapp.models.User;
 import com.myapp.utils.PasswordUtils;
 
@@ -19,26 +20,42 @@ public class AuthenticationService {
 
     /**
      * Authentifie un utilisateur avec nom d'utilisateur et mot de passe
+     * @return LoginResult indiquant le résultat de la tentative de connexion
      */
-    public boolean login(String username, String password) {
+    public LoginResult login(String username, String password) {
         if (username == null || username.trim().isEmpty() || 
             password == null || password.trim().isEmpty()) {
-            return false;
+            return LoginResult.EMPTY_FIELDS;
         }
 
         User user = userAuthDAO.findByUsername(username.trim());
-        if (user == null || !user.isActive()) {
-            return false;
+        if (user == null) {
+            return LoginResult.USER_NOT_FOUND;
         }
 
+        // Vérifier si le compte est désactivé AVANT de vérifier le mot de passe
+        if (!user.isActive()) {
+            return LoginResult.ACCOUNT_DISABLED;
+        }
+
+        // Vérifier le mot de passe
         if (PasswordUtils.verifyPassword(password, user.getPasswordHash())) {
             this.currentUser = user;
             user.updateLastLogin();
             userAuthDAO.updateLastLogin(user.getId());
-            return true;
+            return LoginResult.SUCCESS;
         }
 
-        return false;
+        return LoginResult.INVALID_CREDENTIALS;
+    }
+
+    /**
+     * Méthode de compatibilité qui retourne un boolean (pour le code existant)
+     * @deprecated Utilisez login(String, String) qui retourne LoginResult
+     */
+    @Deprecated
+    public boolean loginBoolean(String username, String password) {
+        return login(username, password) == LoginResult.SUCCESS;
     }
 
     /**

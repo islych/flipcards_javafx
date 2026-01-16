@@ -16,7 +16,7 @@ public class UserAuthDAO {
     public List<User> findAll() {
         List<User> list = new ArrayList<>();
         String sql = "SELECT id, first_name, last_name, username, password_hash, email, " +
-                    "role, is_active, last_login, created_at, updated_at FROM users WHERE is_active = true";
+                    "role, is_active, last_login, created_at, updated_at FROM users ORDER BY id";
         try (Connection c = MySQLConnection.getConnection();
              PreparedStatement ps = c.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
@@ -172,6 +172,23 @@ public class UserAuthDAO {
             e.printStackTrace();
         }
         return false;
+    }
+
+    /**
+     * Supprime définitivement un utilisateur de la base de données
+     * ATTENTION: Cette action est irréversible et supprimera aussi tous les scores associés
+     */
+    public boolean deleteUser(int userId) {
+        String sql = "DELETE FROM users WHERE id = ?";
+        try (Connection c = MySQLConnection.getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            int affected = ps.executeUpdate();
+            return affected == 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     /**

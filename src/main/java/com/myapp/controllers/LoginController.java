@@ -1,5 +1,6 @@
 package com.myapp.controllers;
 
+import com.myapp.models.LoginResult;
 import com.myapp.models.User;
 import com.myapp.services.AuthenticationService;
 import com.myapp.utils.SceneManager;
@@ -83,36 +84,60 @@ public class LoginController {
         // Authentification en arrière-plan
         new Thread(() -> {
             try {
-                boolean success = authService.login(username.trim(), password);
+                LoginResult result = authService.login(username.trim(), password);
                 
                 Platform.runLater(() -> {
                     btnLogin.setDisable(false);
                     btnLogin.setText("Se connecter");
                     
-                    if (success) {
-                        User currentUser = authService.getCurrentUser();
-                        System.out.println("Connexion réussie pour: " + currentUser.getFullName());
-                        
-                        // Stocker l'utilisateur connecté pour les autres contrôleurs
-                        System.setProperty("currentUserId", String.valueOf(currentUser.getId()));
-                        System.setProperty("currentUserName", currentUser.getFullName());
-                        
-                        // IMPORTANT: Effacer le mode invité lors de la connexion
-                        System.clearProperty("isGuest");
-                        
-                        // Rediriger vers l'écran d'accueil
-                        SceneManager.show("home");
-                    } else {
-                        showError("Nom d'utilisateur ou mot de passe incorrect.");
-                        passwordField.clear();
-                        usernameField.requestFocus();
+                    switch (result) {
+                        case SUCCESS:
+                            User currentUser = authService.getCurrentUser();
+                            System.out.println("Connexion réussie pour: " + currentUser.getFullName());
+                            
+                            // Stocker l'utilisateur connecté pour les autres contrôleurs
+                            System.setProperty("currentUserId", String.valueOf(currentUser.getId()));
+                            System.setProperty("currentUserName", currentUser.getFullName());
+                            
+                            // IMPORTANT: Effacer le mode invité lors de la connexion
+                            System.clearProperty("isGuest");
+                            
+                            // Rediriger vers l'écran d'accueil
+                            SceneManager.show("home");
+                            break;
+                            
+                        case ACCOUNT_DISABLED:
+                            showError("⚠️ Ce compte est désactivé.\nContactez un administrateur pour le réactiver.");
+                            passwordField.clear();
+                            usernameField.requestFocus();
+                            break;
+                            
+                        case INVALID_CREDENTIALS:
+                            showError("❌ Nom d'utilisateur ou mot de passe incorrect.");
+                            passwordField.clear();
+                            usernameField.requestFocus();
+                            break;
+                            
+                        case USER_NOT_FOUND:
+                            showError("❌ Utilisateur non trouvé.");
+                            passwordField.clear();
+                            usernameField.requestFocus();
+                            break;
+                            
+                        case EMPTY_FIELDS:
+                            showError("⚠️ Veuillez remplir tous les champs.");
+                            break;
+                            
+                        default:
+                            showError("❌ Erreur de connexion inconnue.");
+                            break;
                     }
                 });
             } catch (Exception e) {
                 Platform.runLater(() -> {
                     btnLogin.setDisable(false);
                     btnLogin.setText("Se connecter");
-                    showError("Erreur de connexion. Veuillez réessayer.");
+                    showError("❌ Erreur de connexion. Veuillez réessayer.");
                     e.printStackTrace();
                 });
             }
@@ -148,11 +173,14 @@ public class LoginController {
     private void showError(String message) {
         errorLabel.setText(message);
         errorLabel.setVisible(true);
+        errorLabel.setStyle("-fx-text-fill: #e74c3c; -fx-font-weight: bold; -fx-font-size: 14px; " +
+                           "-fx-background-color: rgba(231, 76, 60, 0.1); -fx-background-radius: 5; " +
+                           "-fx-padding: 10; -fx-border-color: #e74c3c; -fx-border-width: 1; -fx-border-radius: 5;");
         
-        // Masquer le message après 5 secondes
+        // Masquer le message après 8 secondes (plus long pour les messages importants)
         new Thread(() -> {
             try {
-                Thread.sleep(5000);
+                Thread.sleep(8000);
                 Platform.runLater(() -> {
                     if (errorLabel.getText().equals(message)) {
                         errorLabel.setVisible(false);

@@ -9,19 +9,28 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.myapp.controllers.ScoreboardController">
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.myapp.controllers.ScoreboardController" styleClass="scoreboard-root">
     <top>
-        <HBox spacing="12" alignment="CENTER">
-            <padding>
-                <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-            <Label text="Sort by:" />
-            <ComboBox fx:id="sortCombo" prefWidth="150" />
-            <Label text="Filter by player:" />
-            <ComboBox fx:id="playerFilterCombo" promptText="All players" prefWidth="150" />
-            <Label text="Filter by theme:" />
-            <ComboBox fx:id="themeFilterCombo" promptText="All themes" prefWidth="150" />
-        </HBox>
+        <VBox spacing="5">
+            <HBox spacing="12" alignment="CENTER">
+                <padding>
+                    <Insets top="10" right="10" bottom="5" left="10" />
+                </padding>
+                <Label text="Sort by:" />
+                <ComboBox fx:id="sortCombo" prefWidth="150" />
+                <Label text="Filter by player:" />
+                <ComboBox fx:id="playerFilterCombo" promptText="All players" prefWidth="200" />
+                <Label text="Filter by theme:" />
+                <ComboBox fx:id="themeFilterCombo" promptText="All themes" prefWidth="150" />
+            </HBox>
+            <HBox alignment="CENTER">
+                <padding>
+                    <Insets bottom="5" />
+                </padding>
+                <Label fx:id="displayModeLabel" text="📊 Affichage : Meilleur score par utilisateur" 
+                       style="-fx-text-fill: #8a2be2; -fx-font-weight: bold; -fx-font-style: italic; -fx-font-size: 14px;" />
+            </HBox>
+        </VBox>
     </top>
     <center>
         <TableView fx:id="table">

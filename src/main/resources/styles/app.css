@@ -3,7 +3,7 @@
 /* Thème principal : background d'origine avec améliorations modernes */
 .root {
     -fx-background-image: url("../images/purple1.jpg");
-    -fx-background-size: stretch;
+    -fx-background-size: cover;
     -fx-background-position: center center;
     -fx-background-repeat: no-repeat;
     -fx-font-family: "Segoe UI", Roboto, Arial, sans-serif;
@@ -15,119 +15,224 @@
 /* Vue de jeu avec background d'origine */
 .fullscreen-game {
     -fx-background-image: url("../images/purple1.jpg");
-    -fx-background-size: stretch;
+    -fx-background-size: cover;
     -fx-background-position: center center;
     -fx-background-repeat: no-repeat;
+    -fx-padding: 0;
 }
 
-/* En-tête du jeu - amélioré avec transparence */
+/* Overlay pour améliorer la lisibilité */
+.fullscreen-game-overlay {
+    -fx-background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* En-tête du jeu - contraste maximal */
 .game-header {
-    -fx-background-color: rgba(0, 0, 0, 0.7);
+    -fx-background-color: rgba(0, 0, 0, 0.95);
     -fx-background-radius: 20;
-    -fx-padding: 25;
-    -fx-border-color: rgba(138, 43, 226, 0.6);
-    -fx-border-width: 2;
+    -fx-padding: 20 30;
+    -fx-border-color: #8a2be2;
+    -fx-border-width: 3;
     -fx-border-radius: 20;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 15, 0, 0, 5);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.8), 20, 0, 0, 8);
 }
 
-/* Contrôles du jeu - améliorés */
+/* Contrôles du jeu - contraste maximal */
 .game-controls {
-    -fx-background-color: rgba(0, 0, 0, 0.7);
+    -fx-background-color: rgba(0, 0, 0, 0.95);
     -fx-background-radius: 20;
-    -fx-padding: 25;
-    -fx-border-color: rgba(138, 43, 226, 0.6);
-    -fx-border-width: 2;
+    -fx-padding: 20 30;
+    -fx-border-color: #8a2be2;
+    -fx-border-width: 3;
     -fx-border-radius: 20;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 15, 0, 0, 5);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.8), 20, 0, 0, 8);
 }
 
-/* Labels d'information du jeu - plus visibles */
+/* Labels d'information du jeu - FOND NOIR POUR MEILLEURE VISIBILITÉ */
 .game-info-label {
     -fx-text-fill: white;
     -fx-font-size: 22px;
     -fx-font-weight: bold;
-    -fx-padding: 18 30;
-    -fx-background-color: rgba(138, 43, 226, 0.8);
-    -fx-background-radius: 25;
-    -fx-border-color: rgba(255, 255, 255, 0.4);
+    -fx-padding: 15 25;
+    -fx-background-color: rgba(0, 0, 0, 0.95); /* Fond noir opaque */
+    -fx-background-radius: 20;
+    -fx-border-color: #D8BFD8; /* Nouvelle couleur lavande qui matche le violet */
+    -fx-border-width: 3;
+    -fx-border-radius: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.8), 15, 0, 0, 5);
+    -fx-alignment: center;
+}
+
+/* Zone de score avec fond noir */
+.score-container {
+    -fx-background-color: rgba(0, 0, 0, 0.95);
+    -fx-background-radius: 15;
+    -fx-padding: 15 25;
+    -fx-border-color: #D8BFD8;
     -fx-border-width: 2;
-    -fx-border-radius: 25;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 10, 0, 0, 3);
+    -fx-border-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.8), 10, 0, 0, 4);
+}
+
+.score-label {
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-padding: 5 0;
 }
 
 /* Boutons du jeu - plus élégants */
 .game-button {
-    -fx-font-size: 20px;
-    -fx-padding: 18 35;
+    -fx-font-size: 18px;
+    -fx-padding: 15 30;
     -fx-background-color: linear-gradient(to bottom, #8a2be2, #9932cc);
     -fx-text-fill: white;
-    -fx-background-radius: 30;
+    -fx-background-radius: 25;
     -fx-font-weight: bold;
-    -fx-min-width: 160;
+    -fx-min-width: 140px;
     -fx-border-color: rgba(255, 255, 255, 0.4);
     -fx-border-width: 2;
-    -fx-border-radius: 30;
+    -fx-border-radius: 25;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 12, 0, 0, 4);
+    -fx-cursor: hand;
 }
 
 .game-button:hover {
     -fx-background-color: linear-gradient(to bottom, #9932cc, #8a2be2);
     -fx-effect: dropshadow(gaussian, rgba(138, 43, 226, 0.8), 20, 0, 0, 0);
-    -fx-scale-x: 1.08;
-    -fx-scale-y: 1.08;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-border-color: rgba(255, 255, 255, 0.8);
 }
 
-/* ===== CARTES DE JEU - ULTRA MODERNES ===== */
+.game-button:pressed {
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+}
 
+/* ===== CENTRAGE PARFAIT DES CARTES - AMÉLIORÉ ===== */
+
+/* Conteneur principal de centrage */
+.game-center-container {
+    -fx-alignment: center;
+    -fx-fill-width: true;
+    -fx-fill-height: true;
+    -fx-padding: 20px;
+}
+
+/* Centrage de la grille */
+.grid-pane-container {
+    -fx-alignment: center;
+    -fx-fill-width: true;
+    -fx-padding: 0;
+}
+
+/* GRID PANE AVEC ESPACEMENT CONSTANT DÈS LE DÉBUT */
+.grid-pane {
+    -fx-alignment: center;
+    -fx-padding: 25px;
+    -fx-hgap: 25px !important;  /* Forcer l'espacement horizontal dès le début */
+    -fx-vgap: 25px !important;  /* Forcer l'espacement vertical dès le début */
+    -fx-max-width: -infinity;
+    -fx-max-height: -infinity;
+}
+
+/* Cartes avec centrage parfait et espacement constant */
 .button.card-button {
-    -fx-background-radius: 25;
-    -fx-border-radius: 25;
-    -fx-background-color: linear-gradient(to bottom, #ffffff, #f8f9fa);
-    -fx-border-color: rgba(138, 43, 226, 0.5);
-    -fx-border-width: 3;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 15, 0, 0, 8);
+    -fx-background-radius: 12px;
+    -fx-border-radius: 12px;
+    -fx-background-color: linear-gradient(to bottom, #ffffff, #f0f8ff);
+    -fx-border-color: #000000;
+    -fx-border-width: 4px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.9), 20, 0, 0, 8);
     -fx-font-size: 28px;
     -fx-font-weight: bold;
-    -fx-text-fill: #2c3e50;
+    -fx-text-fill: #000000;
+    -fx-min-width: 100px;
+    -fx-min-height: 100px;
+    -fx-pref-width: 100px;
+    -fx-pref-height: 100px;
+    -fx-max-width: 100px;
+    -fx-max-height: 100px;
+    -fx-alignment: center;
+    -fx-content-display: center;
+    -fx-cursor: hand;
+    -fx-padding: 0;
+    -fx-margin: 5px !important; /* Marge forcée pour espacement constant */
 }
 
+/* États des cartes - COULEUR ORANGE REMPLACÉE PAR LAVANDE */
 .button.card-button:focused, .button.card-button:hover {
-    -fx-effect: dropshadow(gaussian, rgba(138, 43, 226, 1.0), 25, 0, 0, 0);
-    -fx-scale-x: 1.12;
-    -fx-scale-y: 1.12;
-    -fx-border-color: rgba(138, 43, 226, 0.8);
-    -fx-border-width: 4;
+    -fx-effect: dropshadow(gaussian, #D8BFD8, 25, 0, 0, 0); /* Lavande au lieu d'orange */
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-border-color: #D8BFD8; /* Lavande au lieu d'orange */
+    -fx-border-width: 5px;
+    -fx-background-color: linear-gradient(to bottom, #fff8f0, #ffe8d6);
+    -fx-background-radius: 12px; /* Maintenir les coins arrondis */
+    -fx-border-radius: 12px;
 }
 
 .button.card-button:pressed {
-    -fx-scale-x: 0.92;
-    -fx-scale-y: 0.92;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 8, 0, 0, 2);
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1.0), 15, 0, 0, 5);
+    -fx-background-radius: 12px; /* Maintenir les coins arrondis */
+    -fx-border-radius: 12px;
 }
 
-/* ===== GRILLE ET CONTENEURS ===== */
-
-.grid-pane {
-    -fx-alignment: center;
-    -fx-padding: 30;
+/* Cartes retournées */
+.button.card-button.flipped {
+    -fx-background-color: linear-gradient(to bottom, #ffffff, #f8f9fa);
+    -fx-border-color: #D8BFD8; /* Lavande au lieu de vert */
+    -fx-border-width: 5px;
+    -fx-effect: dropshadow(gaussian, rgba(216, 191, 216, 0.8), 25, 0, 0, 0); /* Lavande */
+    -fx-background-radius: 12px !important; /* FORCER les coins arrondis */
+    -fx-border-radius: 12px !important;
 }
+
+/* Cartes appariées */
+.button.card-button.matched {
+    -fx-background-color: linear-gradient(to bottom, #E6E6FA, #D8BFD8); /* Tons lavande */
+    -fx-border-color: #9370DB; /* Violet moyen */
+    -fx-border-width: 5px;
+    -fx-effect: dropshadow(gaussian, rgba(147, 112, 219, 1.0), 25, 0, 0, 0); /* Violet moyen */
+    -fx-opacity: 0.9;
+    -fx-background-radius: 12px !important; /* FORCER les coins arrondis */
+    -fx-border-radius: 12px !important;
+}
+
+/* Cartes face cachée */
+.button.card-button.face-down {
+    -fx-background-color: linear-gradient(to bottom, #6c5ce7, #a29bfe);
+    -fx-border-color: #2d3436;
+    -fx-border-width: 4px;
+    -fx-text-fill: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1.0), 20, 0, 0, 10);
+    -fx-background-radius: 12px !important; /* FORCER les coins arrondis */
+    -fx-border-radius: 12px !important;
+}
+
+/* ===== GRILLE ET CONTENEURS - CENTRAGE OPTIMISÉ ===== */
 
 .game-container {
     -fx-alignment: center;
-    -fx-spacing: 30;
-    -fx-padding: 40;
+    -fx-spacing: 20px;
+    -fx-padding: 30px;
+    -fx-max-width: 100%;
 }
 
 .game-area {
     -fx-alignment: center;
-    -fx-background-color: rgba(255, 255, 255, 0.15);
-    -fx-background-radius: 30;
-    -fx-padding: 50;
-    -fx-border-color: rgba(138, 43, 226, 0.4);
-    -fx-border-width: 2;
-    -fx-border-radius: 30;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 20, 0, 0, 10);
+    -fx-background-color: rgba(0, 0, 0, 0.85);
+    -fx-background-radius: 20px;
+    -fx-padding: 30px;
+    -fx-border-color: #ffffff;
+    -fx-border-width: 4px;
+    -fx-border-radius: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.9), 30, 0, 0, 15);
+    -fx-max-width: fit-content;
+    -fx-max-height: fit-content;
 }
 
 /* ===== VUE D'ACCUEIL ===== */
@@ -135,193 +240,108 @@
 .home-root {
     -fx-alignment: center;
     -fx-background-image: url("../images/purple1.jpg");
-    -fx-background-size: stretch;
+    -fx-background-size: cover;
     -fx-background-position: center center;
     -fx-background-repeat: no-repeat;
+    -fx-padding: 40px;
 }
 
 .home-panel {
-    -fx-background-color: rgba(0, 0, 0, 0.75);
-    -fx-background-radius: 30;
-    -fx-padding: 50;
+    -fx-background-color: rgba(0, 0, 0, 0.8);
+    -fx-background-radius: 25px;
+    -fx-padding: 40px;
     -fx-border-color: rgba(138, 43, 226, 0.6);
-    -fx-border-width: 3;
-    -fx-border-radius: 30;
+    -fx-border-width: 3px;
+    -fx-border-radius: 25px;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 25, 0, 0, 15);
+    -fx-alignment: center;
+    -fx-spacing: 25px;
+    -fx-max-width: 600px;
 }
 
 .game-title {
-    -fx-font-size: 42px;
+    -fx-font-size: 48px;
     -fx-font-weight: bold;
     -fx-text-fill: white;
-    -fx-effect: dropshadow(gaussian, rgba(138, 43, 226, 0.8), 5, 0, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(138, 43, 226, 0.8), 10, 0, 0, 0);
+    -fx-alignment: center;
+    -fx-text-alignment: center;
 }
 
 .welcome-label {
     -fx-text-fill: white;
     -fx-effect: dropshadow(gaussian, rgba(138, 43, 226, 0.8), 5, 0, 0, 0);
+    -fx-font-size: 18px;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
 }
 
 /* ===== BOUTONS PRINCIPAUX - AMÉLIORÉS ===== */
 
 .primary-button {
-    -fx-font-size: 22px;
-    -fx-padding: 18 40;
+    -fx-font-size: 20px;
+    -fx-padding: 15 35;
     -fx-background-color: linear-gradient(to bottom, #8a2be2, #9932cc);
     -fx-text-fill: white;
-    -fx-background-radius: 30;
+    -fx-background-radius: 25px;
     -fx-font-weight: bold;
-    -fx-min-width: 200;
+    -fx-min-width: 180px;
     -fx-border-color: rgba(255, 255, 255, 0.4);
-    -fx-border-width: 2;
-    -fx-border-radius: 30;
+    -fx-border-width: 2px;
+    -fx-border-radius: 25px;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 12, 0, 0, 4);
+    -fx-cursor: hand;
 }
 
 .primary-button:hover {
     -fx-background-color: linear-gradient(to bottom, #9932cc, #8a2be2);
     -fx-effect: dropshadow(gaussian, rgba(138, 43, 226, 0.9), 20, 0, 0, 0);
-    -fx-scale-x: 1.08;
-    -fx-scale-y: 1.08;
-}
-
-.secondary-button {
-    -fx-font-size: 18px;
-    -fx-padding: 15 30;
-    -fx-background-color: rgba(255, 255, 255, 0.25);
-    -fx-text-fill: white;
-    -fx-background-radius: 25;
-    -fx-font-weight: bold;
-    -fx-border-color: rgba(255, 255, 255, 0.5);
-    -fx-border-width: 2;
-    -fx-border-radius: 25;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0, 0, 3);
-}
-
-.secondary-button:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.4);
-    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.7), 15, 0, 0, 0);
     -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;
 }
 
-.admin-button {
-    -fx-background-color: linear-gradient(to bottom, #8a2be2, #9932cc);
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-background-radius: 20;
+.secondary-button {
+    -fx-font-size: 16px;
     -fx-padding: 12 25;
-    -fx-border-color: rgba(255, 255, 255, 0.2);
-    -fx-border-width: 1;
-    -fx-border-radius: 20;
-}
-
-.admin-button:hover {
-    -fx-background-color: linear-gradient(to bottom, #9932cc, #8a2be2);
-    -fx-effect: dropshadow(gaussian, rgba(138, 43, 226, 0.8), 15, 0, 0, 0);
-}
-
-.logout-button {
-    -fx-background-color: linear-gradient(to bottom, #dc3545, #c82333);
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-background-radius: 20;
-    -fx-padding: 12 25;
-    -fx-border-color: rgba(255, 255, 255, 0.2);
-    -fx-border-width: 1;
-    -fx-border-radius: 20;
-}
-
-.logout-button:hover {
-    -fx-background-color: linear-gradient(to bottom, #c82333, #bd2130);
-    -fx-effect: dropshadow(gaussian, rgba(220, 53, 69, 0.8), 15, 0, 0, 0);
-}
-
-.small-button {
-    -fx-font-size: 14px;
-    -fx-padding: 8 15;
     -fx-background-color: rgba(255, 255, 255, 0.2);
     -fx-text-fill: white;
-    -fx-background-radius: 15;
-    -fx-border-color: rgba(255, 255, 255, 0.3);
-    -fx-border-width: 1;
-    -fx-border-radius: 15;
-}
-
-.small-button:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.3);
-}
-
-.danger-button {
-    -fx-background-color: linear-gradient(to bottom, #e74c3c, #c0392b);
-    -fx-text-fill: white;
+    -fx-background-radius: 20px;
     -fx-font-weight: bold;
-    -fx-background-radius: 15;
-    -fx-padding: 8 15;
-    -fx-border-color: rgba(255, 255, 255, 0.2);
-    -fx-border-width: 1;
-    -fx-border-radius: 15;
+    -fx-border-color: rgba(255, 255, 255, 0.4);
+    -fx-border-width: 2px;
+    -fx-border-radius: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0, 0, 3);
+    -fx-cursor: hand;
 }
 
-.danger-button:hover {
-    -fx-background-color: linear-gradient(to bottom, #c0392b, #a93226);
-    -fx-effect: dropshadow(gaussian, rgba(231, 76, 60, 0.8), 15, 0, 0, 0);
+.secondary-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.3);
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.7), 15, 0, 0, 0);
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
 }
 
 /* ===== AUTHENTIFICATION ===== */
 
 .login-root, .register-root {
     -fx-background-image: url("../images/purple1.jpg");
-    -fx-background-size: stretch;
+    -fx-background-size: cover;
     -fx-background-position: center center;
     -fx-background-repeat: no-repeat;
+    -fx-alignment: center;
 }
 
 .login-container, .register-container {
-    -fx-background-color: rgba(0, 0, 0, 0.8);
-    -fx-background-radius: 30;
+    -fx-background-color: rgba(0, 0, 0, 0.85);
+    -fx-background-radius: 25px;
     -fx-border-color: rgba(138, 43, 226, 0.6);
-    -fx-border-width: 3;
-    -fx-border-radius: 30;
+    -fx-border-width: 3px;
+    -fx-border-radius: 25px;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 25, 0, 0, 15);
-}
-
-.guest-button {
-    -fx-background-color: linear-gradient(to bottom, #f39c12, #e67e22);
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-background-radius: 20;
-    -fx-padding: 12 25;
-    -fx-border-color: rgba(255, 255, 255, 0.2);
-    -fx-border-width: 1;
-    -fx-border-radius: 20;
-}
-
-.guest-button:hover {
-    -fx-background-color: linear-gradient(to bottom, #e67e22, #d35400);
-    -fx-effect: dropshadow(gaussian, rgba(243, 156, 18, 0.8), 15, 0, 0, 0);
-}
-
-.guest-section {
-    -fx-background-color: rgba(243, 156, 18, 0.1);
-    -fx-background-radius: 15;
-    -fx-padding: 20;
-    -fx-border-color: rgba(243, 156, 18, 0.3);
-    -fx-border-width: 1;
-    -fx-border-radius: 15;
-}
-
-.link-button {
-    -fx-background-color: transparent;
-    -fx-text-fill: #8a2be2;
-    -fx-underline: true;
-    -fx-cursor: hand;
-    -fx-border-width: 0;
-    -fx-font-size: 14px;
-}
-
-.link-button:hover {
-    -fx-text-fill: #9932cc;
+    -fx-padding: 40px;
+    -fx-spacing: 20px;
+    -fx-alignment: center;
+    -fx-max-width: 500px;
 }
 
 /* ===== LABELS ET TEXTE ===== */
@@ -331,69 +351,56 @@
 }
 
 .form-label {
-    -fx-font-size: 18px;
+    -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-text-fill: white;
-    -fx-min-width: 100px;
-    -fx-alignment: center-right;
+    -fx-min-width: 120px;
+    -fx-alignment: center-left;
 }
 
 .title-label {
-    -fx-font-size: 28px;
+    -fx-font-size: 32px;
     -fx-font-weight: bold;
     -fx-text-fill: white;
+    -fx-alignment: center;
 }
 
 .subtitle-label {
     -fx-font-size: 24px;
     -fx-font-weight: bold;
     -fx-text-fill: white;
+    -fx-alignment: center;
 }
 
 .error-label {
     -fx-text-fill: #ff6b6b;
     -fx-font-weight: bold;
     -fx-background-color: rgba(255, 107, 107, 0.2);
-    -fx-background-radius: 10;
-    -fx-padding: 10;
+    -fx-background-radius: 10px;
+    -fx-padding: 10px;
     -fx-border-color: rgba(255, 107, 107, 0.5);
-    -fx-border-width: 1;
-    -fx-border-radius: 10;
-}
-
-.separator-label {
-    -fx-text-fill: #bdc3c7;
-    -fx-font-style: italic;
-    -fx-font-size: 16px;
-}
-
-.info-label {
-    -fx-text-fill: #bdc3c7;
-    -fx-font-size: 14px;
-}
-
-.validation-label {
-    -fx-font-size: 14px;
-    -fx-text-fill: white;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+    -fx-alignment: center;
 }
 
 /* ===== CHAMPS DE SAISIE - AMÉLIORÉS ===== */
 
-TextField, ComboBox {
+.text-field, .combo-box {
     -fx-background-color: rgba(255, 255, 255, 0.95);
     -fx-text-fill: #2c3e50;
     -fx-border-color: rgba(138, 43, 226, 0.4);
-    -fx-border-width: 2;
-    -fx-border-radius: 15;
-    -fx-background-radius: 15;
+    -fx-border-width: 2px;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
     -fx-font-size: 16px;
-    -fx-pref-height: 45px;
+    -fx-pref-height: 40px;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);
 }
 
-TextField:focused, ComboBox:focused {
+.text-field:focused, .combo-box:focused {
     -fx-border-color: rgba(138, 43, 226, 0.8);
-    -fx-border-width: 3;
+    -fx-border-width: 3px;
     -fx-effect: dropshadow(gaussian, rgba(138, 43, 226, 0.5), 10, 0, 0, 0);
     -fx-background-color: rgba(255, 255, 255, 1.0);
 }
@@ -403,9 +410,9 @@ TextField:focused, ComboBox:focused {
 .table-view {
     -fx-background-color: rgba(0, 0, 0, 0.7);
     -fx-border-color: rgba(138, 43, 226, 0.5);
-    -fx-border-width: 2;
-    -fx-border-radius: 20;
-    -fx-background-radius: 20;
+    -fx-border-width: 2px;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 15, 0, 0, 5);
 }
 
@@ -414,12 +421,15 @@ TextField:focused, ComboBox:focused {
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-font-size: 16px;
+    -fx-alignment: center;
 }
 
 .table-view .table-cell {
     -fx-text-fill: white;
     -fx-background-color: transparent;
     -fx-font-size: 14px;
+    -fx-alignment: center;
+    -fx-padding: 10px;
 }
 
 .table-view .table-row-cell:selected {
@@ -435,41 +445,44 @@ TextField:focused, ComboBox:focused {
 .vbox {
     -fx-alignment: center;
     -fx-background-color: rgba(0, 0, 0, 0.6);
-    -fx-background-radius: 25;
-    -fx-padding: 35;
+    -fx-background-radius: 20px;
+    -fx-padding: 30px;
     -fx-border-color: rgba(138, 43, 226, 0.4);
-    -fx-border-width: 2;
-    -fx-border-radius: 25;
+    -fx-border-width: 2px;
+    -fx-border-radius: 20px;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 18, 0, 0, 10);
 }
 
 .hbox {
     -fx-background-color: rgba(0, 0, 0, 0.5);
-    -fx-padding: 20;
-    -fx-background-radius: 20;
+    -fx-padding: 15px;
+    -fx-background-radius: 15px;
     -fx-border-color: rgba(138, 43, 226, 0.3);
-    -fx-border-width: 1;
-    -fx-border-radius: 20;
+    -fx-border-width: 1px;
+    -fx-border-radius: 15px;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 5);
+    -fx-alignment: center;
+    -fx-spacing: 15px; /* Espacement augmenté */
 }
 
 /* ===== STYLES SPÉCIAUX ===== */
 
 .message-label {
     -fx-font-weight: bold;
-    -fx-background-radius: 10;
-    -fx-padding: 10;
-    -fx-border-radius: 10;
-    -fx-border-width: 1;
+    -fx-background-radius: 10px;
+    -fx-padding: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1px;
+    -fx-alignment: center;
 }
 
 .validation-box {
     -fx-background-color: rgba(255, 255, 255, 0.1);
-    -fx-background-radius: 10;
-    -fx-padding: 15;
+    -fx-background-radius: 10px;
+    -fx-padding: 15px;
     -fx-border-color: rgba(138, 43, 226, 0.3);
-    -fx-border-width: 1;
-    -fx-border-radius: 10;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
 }
 
 /* ===== BOUTONS SPÉCIAUX - AMÉLIORÉS ===== */
@@ -478,12 +491,13 @@ TextField:focused, ComboBox:focused {
     -fx-background-color: linear-gradient(to bottom, #8a2be2, #9932cc);
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-background-radius: 25;
-    -fx-padding: 15 30;
+    -fx-background-radius: 20px;
+    -fx-padding: 12 25;
     -fx-border-color: rgba(255, 255, 255, 0.4);
-    -fx-border-width: 2;
-    -fx-border-radius: 25;
+    -fx-border-width: 2px;
+    -fx-border-radius: 20px;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 3);
+    -fx-cursor: hand;
 }
 
 .admin-button:hover {
@@ -497,12 +511,13 @@ TextField:focused, ComboBox:focused {
     -fx-background-color: linear-gradient(to bottom, #dc3545, #c82333);
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-background-radius: 25;
-    -fx-padding: 15 30;
+    -fx-background-radius: 20px;
+    -fx-padding: 12 25;
     -fx-border-color: rgba(255, 255, 255, 0.4);
-    -fx-border-width: 2;
-    -fx-border-radius: 25;
+    -fx-border-width: 2px;
+    -fx-border-radius: 20px;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 3);
+    -fx-cursor: hand;
 }
 
 .logout-button:hover {
@@ -513,33 +528,37 @@ TextField:focused, ComboBox:focused {
 }
 
 .small-button {
-    -fx-font-size: 16px;
-    -fx-padding: 12 20;
-    -fx-background-color: rgba(255, 255, 255, 0.3);
+    -fx-font-size: 14px;
+    -fx-padding: 8 15;
+    -fx-background-color: rgba(255, 255, 255, 0.2);
     -fx-text-fill: white;
-    -fx-background-radius: 20;
-    -fx-border-color: rgba(255, 255, 255, 0.5);
-    -fx-border-width: 2;
-    -fx-border-radius: 20;
+    -fx-background-radius: 15px;
+    -fx-border-color: rgba(255, 255, 255, 0.4);
+    -fx-border-width: 1px;
+    -fx-border-radius: 15px;
     -fx-font-weight: bold;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 6, 0, 0, 2);
+    -fx-cursor: hand;
 }
 
 .small-button:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.5);
+    -fx-background-color: rgba(255, 255, 255, 0.3);
     -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.6), 12, 0, 0, 0);
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
 }
 
 .danger-button {
     -fx-background-color: linear-gradient(to bottom, #e74c3c, #c0392b);
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-background-radius: 20;
-    -fx-padding: 12 20;
+    -fx-background-radius: 15px;
+    -fx-padding: 8 15;
     -fx-border-color: rgba(255, 255, 255, 0.4);
-    -fx-border-width: 2;
-    -fx-border-radius: 20;
+    -fx-border-width: 2px;
+    -fx-border-radius: 15px;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0, 0, 3);
+    -fx-cursor: hand;
 }
 
 .danger-button:hover {
@@ -553,12 +572,13 @@ TextField:focused, ComboBox:focused {
     -fx-background-color: linear-gradient(to bottom, #f39c12, #e67e22);
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-background-radius: 25;
-    -fx-padding: 15 30;
+    -fx-background-radius: 20px;
+    -fx-padding: 12 25;
     -fx-border-color: rgba(255, 255, 255, 0.4);
-    -fx-border-width: 2;
-    -fx-border-radius: 25;
+    -fx-border-width: 2px;
+    -fx-border-radius: 20px;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 3);
+    -fx-cursor: hand;
 }
 
 .guest-button:hover {
@@ -569,112 +589,527 @@ TextField:focused, ComboBox:focused {
 }
 
 .guest-section {
-    -fx-background-color: rgba(243, 156, 18, 0.2);
-    -fx-background-radius: 20;
-    -fx-padding: 25;
-    -fx-border-color: rgba(243, 156, 18, 0.5);
-    -fx-border-width: 2;
-    -fx-border-radius: 20;
+    -fx-background-color: rgba(243, 156, 18, 0.15);
+    -fx-background-radius: 15px;
+    -fx-padding: 20px;
+    -fx-border-color: rgba(243, 156, 18, 0.4);
+    -fx-border-width: 2px;
+    -fx-border-radius: 15px;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 8, 0, 0, 3);
-}
-
-/* ===== AMÉLIORATIONS SUPPLÉMENTAIRES ===== */
-
-.game-title {
-    -fx-font-size: 48px;
-    -fx-font-weight: bold;
-    -fx-text-fill: white;
-    -fx-effect: dropshadow(gaussian, rgba(138, 43, 226, 0.9), 8, 0, 0, 0);
-}
-
-.welcome-label {
-    -fx-text-fill: white;
-    -fx-effect: dropshadow(gaussian, rgba(138, 43, 226, 0.9), 8, 0, 0, 0);
-}
-
-.form-label {
-    -fx-font-size: 20px;
-    -fx-font-weight: bold;
-    -fx-text-fill: white;
-    -fx-min-width: 120px;
-    -fx-alignment: center-right;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 3, 0, 1, 1);
-}
-
-.title-label {
-    -fx-font-size: 32px;
-    -fx-font-weight: bold;
-    -fx-text-fill: white;
-    -fx-effect: dropshadow(gaussian, rgba(138, 43, 226, 0.8), 5, 0, 0, 0);
-}
-
-.subtitle-label {
-    -fx-font-size: 28px;
-    -fx-font-weight: bold;
-    -fx-text-fill: white;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 3, 0, 1, 1);
-}
-
-.error-label {
-    -fx-text-fill: #ff6b6b;
-    -fx-font-weight: bold;
-    -fx-background-color: rgba(255, 107, 107, 0.25);
-    -fx-background-radius: 15;
-    -fx-padding: 15;
-    -fx-border-color: rgba(255, 107, 107, 0.6);
-    -fx-border-width: 2;
-    -fx-border-radius: 15;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0, 0, 3);
 }
 
 .link-button {
     -fx-background-color: transparent;
-    -fx-text-fill: #8a2be2;
+    -fx-text-fill: #a29bfe;
     -fx-underline: true;
     -fx-cursor: hand;
     -fx-border-width: 0;
-    -fx-font-size: 16px;
+    -fx-font-size: 14px;
     -fx-font-weight: bold;
+    -fx-padding: 5px;
 }
 
 .link-button:hover {
-    -fx-text-fill: #9932cc;
+    -fx-text-fill: #8a2be2;
     -fx-effect: dropshadow(gaussian, rgba(138, 43, 226, 0.6), 5, 0, 0, 0);
 }
 
 .separator-label {
     -fx-text-fill: #bdc3c7;
     -fx-font-style: italic;
-    -fx-font-size: 18px;
+    -fx-font-size: 16px;
     -fx-font-weight: bold;
+    -fx-alignment: center;
 }
 
 .info-label {
     -fx-text-fill: #bdc3c7;
-    -fx-font-size: 16px;
+    -fx-font-size: 14px;
+    -fx-alignment: center;
 }
 
 .validation-label {
-    -fx-font-size: 16px;
+    -fx-font-size: 14px;
     -fx-text-fill: white;
     -fx-font-weight: bold;
+    -fx-alignment: center;
 }
 
-.message-label {
+/* ===== AMÉLIORATIONS SPÉCIALES POUR LA VISIBILITÉ ===== */
+
+/* Cartes avec images - visibilité maximale */
+.button.card-button .image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.8), 5, 0, 0, 2);
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-border-color: #333333;
+    -fx-border-width: 2px;
+    -fx-border-radius: 8px;
+}
+
+/* Animation de retournement des cartes */
+.card-flip-animation {
+    -fx-rotate: 180;
+    -fx-transition: -fx-rotate 0.3s ease-in-out;
+}
+
+/* Amélioration du contraste pour le texte */
+.game-info-label, .title-label, .subtitle-label {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.8), 2, 0, 2, 2);
+}
+
+/* Boutons avec meilleur contraste */
+.game-button, .primary-button {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 1, 0, 1, 1);
+}
+
+/* Responsive design pour différentes tailles d'écran */
+@media screen and (max-width: 1366px) {
+    .button.card-button {
+        -fx-min-width: 90px;
+        -fx-min-height: 90px;
+        -fx-pref-width: 90px;
+        -fx-pref-height: 90px;
+        -fx-font-size: 24px;
+    }
+    
+    .grid-pane {
+        -fx-hgap: 25px; /* Maintenir l'espacement même sur écrans moyens */
+        -fx-vgap: 25px;
+        -fx-padding: 20px;
+    }
+    
+    .game-info-label {
+        -fx-font-size: 20px;
+        -fx-padding: 12 20;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .button.card-button {
+        -fx-min-width: 80px;
+        -fx-min-height: 80px;
+        -fx-pref-width: 80px;
+        -fx-pref-height: 80px;
+        -fx-font-size: 20px;
+    }
+    
+    .grid-pane {
+        -fx-hgap: 20px; /* Réduire légèrement pour petits écrans mais garder visible */
+        -fx-vgap: 20px;
+        -fx-padding: 15px;
+    }
+    
+    .game-info-label {
+        -fx-font-size: 18px;
+        -fx-padding: 10 15;
+    }
+    
+    .game-area {
+        -fx-padding: 20px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .button.card-button {
+        -fx-min-width: 70px;
+        -fx-min-height: 70px;
+        -fx-pref-width: 70px;
+        -fx-pref-height: 70px;
+        -fx-font-size: 18px;
+    }
+    
+    .grid-pane {
+        -fx-hgap: 18px; /* Espacement minimal mais visible pour très petits écrans */
+        -fx-vgap: 18px;
+        -fx-padding: 12px;
+    }
+    
+    .game-info-label {
+        -fx-font-size: 16px;
+        -fx-padding: 8 12;
+    }
+    
+    .game-area {
+        -fx-padding: 15px;
+        -fx-border-width: 3px;
+    }
+}
+
+/* ===== BOUTONS DE FERMETURE ET CONTRÔLES SYSTÈME ===== */
+
+.window-close-button, .close-button {
+    -fx-background-color: #ff4757;
+    -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-background-radius: 15;
-    -fx-padding: 15;
-    -fx-border-radius: 15;
-    -fx-border-width: 2;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0, 0, 3);
+    -fx-font-size: 14px;
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+    -fx-border-color: white;
+    -fx-border-width: 2px;
+    -fx-min-width: 30px;
+    -fx-min-height: 30px;
+    -fx-pref-width: 30px;
+    -fx-pref-height: 30px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.8), 10, 0, 0, 3);
+    -fx-cursor: hand;
 }
 
-.validation-box {
-    -fx-background-color: rgba(0, 0, 0, 0.6);
-    -fx-background-radius: 15;
+.window-close-button:hover, .close-button:hover {
+    -fx-background-color: #ff3742;
+    -fx-effect: dropshadow(gaussian, rgba(255, 71, 87, 0.8), 15, 0, 0, 0);
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+/* ===== AMÉLIORATIONS SUPPLÉMENTAIRES ===== */
+
+/* Assurer le centrage dans BorderPane */
+BorderPane > .center {
+    -fx-alignment: center;
+    -fx-padding: 20px;
+}
+
+/* ScrollPane pour les tableaux si nécessaire */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Effets de transition pour les cartes */
+.transition-card {
+    -fx-transition: all 0.2s ease-in-out;
+}
+
+/* Feedback visuel pour les interactions */
+.button:armed {
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+}
+
+/* ===== CLASSES UTILITAIRES POUR LE CENTRAGE ===== */
+
+.center-all {
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+}
+
+.center-horizontal {
+    -fx-alignment: center-left;
+}
+
+.center-vertical {
+    -fx-alignment: top-center;
+}
+
+/* Pour les textes longs */
+.wrap-text {
+    -fx-wrap-text: true;
+}
+
+/* Espacement uniforme */
+.spacing-10 {
+    -fx-spacing: 10px;
+}
+
+.spacing-20 {
+    -fx-spacing: 20px;
+}
+
+.spacing-30 {
+    -fx-spacing: 30px;
+}
+
+/* ===== ÉTATS SPÉCIAUX DES CARTES ===== */
+
+.card-disabled {
+    -fx-opacity: 0.7;
+    -fx-cursor: default;
+}
+
+.card-highlight {
+    -fx-effect: dropshadow(gaussian, #D8BFD8, 30, 0.5, 0, 0); /* Lavande */
+    -fx-border-color: #D8BFD8; /* Lavande */
+    -fx-border-width: 3px;
+}
+
+/* ===== CORRECTIONS POUR LE CENTRAGE FINAL ===== */
+
+/* Force le centrage de la grille dans tous les cas */
+.game-center-wrapper {
+    -fx-alignment: center;
+    -fx-fill-width: true;
+    -fx-fill-height: true;
+    -fx-padding: 20px;
+    -fx-background-color: transparent;
+}
+
+/* Ajustement final pour le positionnement des cartes */
+.grid-pane .button {
+    -fx-alignment: center;
+    -fx-content-display: center;
+    -fx-text-alignment: center;
+}
+
+/* Correction pour les images dans les cartes */
+.card-button > * {
+    -fx-alignment: center;
+}
+
+/* ===== NOUVELLES COULEURS POUR MATCHER LE THÈME VIOLET ===== */
+
+/* Couleur lavande (#D8BFD8) utilisée pour remplacer l'orange */
+/* Cette couleur s'harmonise parfaitement avec le violet principal (#8a2be2) */
+
+/* Styles spécifiques pour le score - FOND NOIR AMÉLIORÉ */
+.score-panel {
+    -fx-background-color: rgba(0, 0, 0, 0.95);
+    -fx-background-radius: 20;
     -fx-padding: 20;
-    -fx-border-color: rgba(138, 43, 226, 0.4);
+    -fx-border-color: #D8BFD8;
+    -fx-border-width: 3;
+    -fx-border-radius: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.8), 15, 0, 0, 5);
+}
+
+.score-value {
+    -fx-text-fill: white;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.8), 3, 0, 0, 2);
+}
+
+.timer-display {
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-background-color: rgba(0, 0, 0, 0.9);
+    -fx-background-radius: 15;
+    -fx-padding: 10 20;
+    -fx-border-color: #D8BFD8;
     -fx-border-width: 2;
     -fx-border-radius: 15;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 5);
+}
+
+/* Styles pour les messages de jeu */
+.game-message {
+    -fx-text-fill: white;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-background-color: rgba(0, 0, 0, 0.95);
+    -fx-background-radius: 20;
+    -fx-padding: 20 40;
+    -fx-border-color: #D8BFD8;
+    -fx-border-width: 3;
+    -fx-border-radius: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.9), 25, 0, 0, 10);
+}
+
+/* ===== PAGE DES SCORES - CORRECTION VISIBILITÉ ===== */
+
+/* Arrière-plan pour la page des scores */
+.scoreboard-root {
+    -fx-background-image: url("../images/purple1.jpg");
+    -fx-background-size: stretch;
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+}
+
+/* Amélioration du contraste pour les tableaux */
+.table-view .column-header-background {
+    -fx-background-color: rgba(138, 43, 226, 0.9);
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white !important;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+
+/* Lignes du tableau avec meilleur contraste */
+.table-view .table-row-cell {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-border-color: rgba(138, 43, 226, 0.2);
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Cellules avec texte bien visible */
+.table-view .table-cell {
+    -fx-text-fill: white !important;
+    -fx-font-size: 14px !important;
+    -fx-font-weight: normal;
+    -fx-background-color: transparent;
+}
+
+/* Zone de contrôles en haut et en bas */
+BorderPane > .top, BorderPane > .bottom {
+    -fx-background-color: rgba(0, 0, 0, 0.8);
+    -fx-background-radius: 15;
+    -fx-border-color: rgba(138, 43, 226, 0.6);
+    -fx-border-width: 2;
+    -fx-border-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 5);
+}
+
+/* Labels dans les zones de contrôle */
+BorderPane .top Label, BorderPane .bottom Label {
+    -fx-text-fill: white !important;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+/* ComboBox dans la page des scores */
+BorderPane ComboBox {
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    -fx-text-fill: #2c3e50 !important;
+    -fx-border-color: rgba(138, 43, 226, 0.6);
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+/* Forcer l'arrière-plan pour tous les BorderPane */
+BorderPane {
+    -fx-background-image: url("../images/purple1.jpg");
+    -fx-background-size: stretch;
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+}
+
+/* Amélioration spécifique pour les en-têtes de colonnes */
+.table-view .column-header {
+    -fx-background-color: rgba(138, 43, 226, 0.9) !important;
+    -fx-text-fill: white !important;
+    -fx-font-weight: bold !important;
+    -fx-font-size: 16px !important;
+}
+
+/* Correction pour les cellules vides */
+.table-view .table-cell:empty {
+    -fx-background-color: transparent;
+}
+
+/* Sélection avec meilleur contraste */
+.table-view .table-row-cell:selected {
+    -fx-background-color: rgba(138, 43, 226, 0.6) !important;
+}
+
+.table-view .table-row-cell:selected .table-cell {
+    -fx-text-fill: white !important;
+}
+
+/* Hover avec meilleur contraste */
+.table-view .table-row-cell:hover {
+    -fx-background-color: rgba(138, 43, 226, 0.3) !important;
+}
+
+.table-view .table-row-cell:hover .table-cell {
+    -fx-text-fill: white !important;
+}
+/* ===== CORRECTION BOUTON ADMIN ===== */
+
+/* Forcer la visibilité du bouton admin */
+#btnAdminPanel {
+    -fx-background-color: linear-gradient(to bottom, #e74c3c, #c0392b) !important;
+    -fx-text-fill: white !important;
+    -fx-font-weight: bold !important;
+    -fx-background-radius: 25 !important;
+    -fx-padding: 15 30 !important;
+    -fx-border-color: rgba(255, 255, 255, 0.6) !important;
+    -fx-border-width: 3 !important;
+    -fx-border-radius: 25 !important;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 15, 0, 0, 5) !important;
+    -fx-font-size: 18px !important;
+    -fx-min-width: 180 !important;
+    -fx-opacity: 1.0 !important;
+    -fx-visible: true !important;
+}
+
+#btnAdminPanel:hover {
+    -fx-background-color: linear-gradient(to bottom, #c0392b, #a93226) !important;
+    -fx-effect: dropshadow(gaussian, rgba(231, 76, 60, 1.0), 20, 0, 0, 0) !important;
+    -fx-scale-x: 1.1 !important;
+    -fx-scale-y: 1.1 !important;
+}
+
+/* S'assurer que la ligne admin est visible */
+.admin-row {
+    -fx-opacity: 1.0 !important;
+    -fx-visible: true !important;
+}
+
+/* Forcer tous les boutons admin à être visibles */
+Button.admin-button {
+    -fx-opacity: 1.0 !important;
+    -fx-visible: true !important;
+}
+/* ===== IMAGES DANS LES CARTES - COUVERTURE COMPLÈTE ===== */
+
+/* S'assurer que les images remplissent complètement les cartes */
+.button.card-button .image-view {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+    -fx-background-radius: 15; /* Même rayon que la carte */
+}
+
+/* Forcer les images à remplir tout l'espace disponible */
+.button.card-button {
+    -fx-padding: 0 !important; /* Forcer pas de padding interne */
+    -fx-background-insets: 0 !important;
+    -fx-content-display: graphic-only; /* Afficher seulement l'image, pas le texte */
+    -fx-border-insets: 0 !important;
+}
+
+/* Quand la carte contient une image, supprimer tout espacement */
+.button.card-button:contains-graphic {
+    -fx-padding: 0 !important;
+    -fx-background-insets: 0 !important;
+    -fx-border-insets: 0 !important;
+}
+
+/* Espacement uniforme de 0.5cm entre toutes les cartes */
+.grid-pane .button.card-button {
+    -fx-margin: 0; /* Pas de marge supplémentaire sur les boutons */
+}
+
+/* Forcer les ImageView à occuper tout l'espace du bouton */
+.button.card-button > .image-view {
+    -fx-padding: 0 !important;
+    -fx-background-insets: 0 !important;
+    -fx-border-insets: 0 !important;
+    -fx-effect: none; /* Supprimer les effets qui peuvent créer de l'espacement */
+}
+/* ===== CORRECTION FINALE POUR LES IMAGES PLEINE TAILLE ===== */
+
+/* Forcer absolument les images à remplir les cartes */
+.button.card-button {
+    -fx-padding: 0 !important;
+    -fx-background-insets: 0 !important;
+    -fx-border-insets: 0 !important;
+}
+
+/* Supprimer tout espacement interne des boutons avec images */
+.button.card-button > * {
+    -fx-padding: 0 !important;
+    -fx-background-insets: 0 !important;
+}
+
+/* Style spécifique pour les ImageView dans les cartes */
+.button.card-button .image-view,
+.button.card-button > .image-view {
+    -fx-padding: 0 !important;
+    -fx-background-insets: 0 !important;
+    -fx-border-insets: 0 !important;
+    -fx-background-color: transparent !important;
+    -fx-border-width: 0 !important;
 }

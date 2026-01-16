@@ -13,20 +13,29 @@
     
     <!-- Header avec informations du jeu -->
     <top>
-        <HBox spacing="40" alignment="CENTER" styleClass="game-header">
-            <padding>
-                <Insets top="20" right="40" bottom="20" left="40" />
-            </padding>
-            <Label fx:id="lblAttempts" text="Attempts: 0" styleClass="game-info-label" />
-            <Label fx:id="lblTime" text="Time: 0s" styleClass="game-info-label" />
-        </HBox>
+        <VBox spacing="0">
+            <!-- Barre de titre avec bouton de fermeture -->
+            <HBox spacing="10" alignment="CENTER_RIGHT" style="-fx-background-color: rgba(0,0,0,0.9); -fx-padding: 10;">
+                <Button text="✕" onAction="#onBack" styleClass="close-button" 
+                        style="-fx-background-color: #ff4757; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px; -fx-background-radius: 50%; -fx-border-radius: 50%; -fx-border-color: white; -fx-border-width: 2; -fx-min-width: 35; -fx-min-height: 35; -fx-pref-width: 35; -fx-pref-height: 35;" />
+            </HBox>
+            
+            <!-- Informations du jeu -->
+            <HBox spacing="40" alignment="CENTER" styleClass="game-header">
+                <padding>
+                    <Insets top="20" right="40" bottom="20" left="40" />
+                </padding>
+                <Label fx:id="lblAttempts" text="Attempts: 0" styleClass="game-info-label" />
+                <Label fx:id="lblTime" text="Time: 0s" styleClass="game-info-label" />
+            </HBox>
+        </VBox>
     </top>
     
     <!-- Zone de jeu centrée -->
     <center>
-        <VBox alignment="CENTER" styleClass="game-container" spacing="0">
-            <StackPane styleClass="game-area">
-                <GridPane fx:id="grid" styleClass="grid-pane" alignment="CENTER" />
+        <VBox alignment="CENTER" styleClass="game-container" spacing="0" prefWidth="Infinity" maxWidth="Infinity">
+            <StackPane styleClass="game-area" prefWidth="Infinity" maxWidth="Infinity">
+                <GridPane fx:id="grid" styleClass="grid-pane" alignment="CENTER" prefWidth="Infinity" maxWidth="Infinity" />
             </StackPane>
         </VBox>
     </center>

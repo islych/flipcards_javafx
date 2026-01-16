@@ -54,7 +54,7 @@
             <Button fx:id="btnDeactivateUser" mnemonicParsing="false" onAction="#onDeactivateUser" text="Désactiver utilisateur" />
             <Button fx:id="btnActivateUser" mnemonicParsing="false" onAction="#onActivateUser" text="Activer utilisateur" />
             <Button fx:id="btnChangeRole" mnemonicParsing="false" onAction="#onChangeRole" text="Changer rôle" />
-            <Button fx:id="btnDeleteUser" mnemonicParsing="false" onAction="#onDeleteUser" text="Supprimer utilisateur" styleClass="danger-button" />
+            <Button fx:id="btnDeleteUser" mnemonicParsing="false" onAction="#onDeleteUser" text="Supprimer définitivement" styleClass="danger-button" />
             <Region HBox.hgrow="ALWAYS" />
             <Label fx:id="statusLabel" text="" textFill="#27ae60" />
          </children>

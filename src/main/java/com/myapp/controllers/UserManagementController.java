@@ -243,16 +243,29 @@ public class UserManagementController {
 
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
         confirmation.setTitle("Confirmation de suppression");
-        confirmation.setHeaderText("Supprimer l'utilisateur");
-        confirmation.setContentText("Êtes-vous sûr de vouloir supprimer définitivement " + selectedUser.getFullName() + " ?\n\nCette action est irréversible et supprimera également tous ses scores.");
+        confirmation.setHeaderText("Supprimer définitivement l'utilisateur");
+        confirmation.setContentText("⚠️ ATTENTION ⚠️\n\n" +
+                "Êtes-vous sûr de vouloir supprimer DÉFINITIVEMENT " + selectedUser.getFullName() + " ?\n\n" +
+                "Cette action est IRRÉVERSIBLE et supprimera :\n" +
+                "• Le compte utilisateur\n" +
+                "• TOUS ses scores\n" +
+                "• Toutes ses données\n\n" +
+                "L'utilisateur sera complètement effacé de la base de données.");
 
-        if (confirmation.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
-            // Ici on désactive plutôt que de supprimer complètement pour préserver l'intégrité des données
-            if (userAuthDAO.deactivate(selectedUser.getId())) {
-                showStatus("Utilisateur " + selectedUser.getFullName() + " supprimé (désactivé) avec succès.");
+        // Personnaliser les boutons
+        confirmation.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+        Button yesButton = (Button) confirmation.getDialogPane().lookupButton(ButtonType.YES);
+        Button noButton = (Button) confirmation.getDialogPane().lookupButton(ButtonType.NO);
+        yesButton.setText("Supprimer définitivement");
+        noButton.setText("Annuler");
+
+        if (confirmation.showAndWait().orElse(ButtonType.NO) == ButtonType.YES) {
+            // Suppression définitive de la base de données
+            if (userAuthDAO.deleteUser(selectedUser.getId())) {
+                showStatus("✅ Utilisateur " + selectedUser.getFullName() + " supprimé définitivement de la base de données.");
                 loadUsers();
             } else {
-                showError("Erreur lors de la suppression de l'utilisateur.");
+                showError("❌ Erreur lors de la suppression définitive de l'utilisateur. Vérifiez les contraintes de base de données.");
             }
         }
     }

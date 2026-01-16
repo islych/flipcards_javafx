@@ -14,12 +14,14 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class ScoreboardController {
@@ -55,6 +57,8 @@ public class ScoreboardController {
     private Button btnDelete;
     @FXML 
     private TableColumn<Score, String> colTheme;
+    @FXML
+    private Label displayModeLabel;
 
     private ObservableList<Score> allScores;
 
@@ -149,7 +153,7 @@ public class ScoreboardController {
     }
 
     private User createAllUsersOption() {
-        User allUsers = new User("Tous", "les joueurs");
+        User allUsers = new User("Tous les joueurs", "(meilleur score seulement)");
         allUsers.setId(-1);
         return allUsers;
     }
@@ -172,10 +176,36 @@ public class ScoreboardController {
     private void applyFilters() {
         if (allScores == null) return;
 
-        List<Score> filteredScores = allScores.stream()
-            .filter(this::matchesPlayerFilter)
-            .filter(this::matchesThemeFilter)
-            .collect(Collectors.toList());
+        List<Score> filteredScores;
+        
+        // Vérifier si un utilisateur spécifique est sélectionné
+        User selectedUser = playerFilterCombo != null ? playerFilterCombo.getSelectionModel().getSelectedItem() : null;
+        boolean isSpecificUserSelected = selectedUser != null && selectedUser.getId() != -1;
+        
+        if (isSpecificUserSelected) {
+            // Si un utilisateur spécifique est sélectionné, afficher TOUS ses scores
+            filteredScores = allScores.stream()
+                .filter(score -> score.getUser().getId() == selectedUser.getId())
+                .filter(this::matchesThemeFilter)
+                .collect(Collectors.toList());
+            System.out.println("Affichage de tous les scores pour: " + selectedUser.getFullName() + " (" + filteredScores.size() + " scores)");
+            
+            // Mettre à jour le label d'affichage
+            if (displayModeLabel != null) {
+                displayModeLabel.setText("📋 Affichage : Tous les scores de " + selectedUser.getFullName() + " (" + filteredScores.size() + " scores)");
+            }
+        } else {
+            // Si "Tous les joueurs" est sélectionné, afficher seulement le MEILLEUR score par utilisateur
+            filteredScores = getBestScorePerUser(allScores.stream()
+                .filter(this::matchesThemeFilter)
+                .collect(Collectors.toList()));
+            System.out.println("Affichage du meilleur score par utilisateur (" + filteredScores.size() + " utilisateurs)");
+            
+            // Mettre à jour le label d'affichage
+            if (displayModeLabel != null) {
+                displayModeLabel.setText("📊 Affichage : Meilleur score par utilisateur (" + filteredScores.size() + " utilisateurs)");
+            }
+        }
 
         // Appliquer le tri
         if (sortCombo != null) {
@@ -207,14 +237,29 @@ public class ScoreboardController {
         table.setItems(FXCollections.observableArrayList(filteredScores));
     }
 
-    private boolean matchesPlayerFilter(Score score) {
-        if (playerFilterCombo == null) return true;
-        
-        User selectedUser = playerFilterCombo.getSelectionModel().getSelectedItem();
-        if (selectedUser == null || selectedUser.getId() == -1) {
-            return true; // "Tous les joueurs" sélectionné
-        }
-        return score.getUser().getId() == selectedUser.getId();
+    /**
+     * Retourne le meilleur score pour chaque utilisateur
+     * Le meilleur score = moins d'essais, puis moins de temps en cas d'égalité
+     */
+    private List<Score> getBestScorePerUser(List<Score> scores) {
+        return scores.stream()
+            .collect(Collectors.groupingBy(
+                score -> score.getUser().getId(),
+                Collectors.minBy((s1, s2) -> {
+                    // Comparer d'abord par nombre d'essais (moins = mieux)
+                    int attemptsCompare = Integer.compare(s1.getAttempts(), s2.getAttempts());
+                    if (attemptsCompare != 0) {
+                        return attemptsCompare;
+                    }
+                    // En cas d'égalité d'essais, comparer par temps (moins = mieux)
+                    return Integer.compare(s1.getTimeSeconds(), s2.getTimeSeconds());
+                })
+            ))
+            .values()
+            .stream()
+            .filter(Optional::isPresent)
+            .map(Optional::get)
+            .collect(Collectors.toList());
     }
 
     private boolean matchesThemeFilter(Score score) {

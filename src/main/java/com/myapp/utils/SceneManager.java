@@ -3,6 +3,7 @@ package com.myapp.utils;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -15,15 +16,21 @@ public class SceneManager {
         primaryStage = stage;
         primaryStage.setTitle("Memory Game");
 
-        // 🔑 Activer le plein écran au démarrage
-        primaryStage.setFullScreen(true);
+        // Configuration de la fenêtre en mode normal (pas plein écran)
+        primaryStage.setFullScreen(false);
+        
+        // Définir une taille par défaut pour la fenêtre
+        primaryStage.setWidth(1200);
+        primaryStage.setHeight(800);
+        
+        // Centrer la fenêtre sur l'écran
+        primaryStage.centerOnScreen();
 
-        // 🔑 Permettre la sortie du plein écran avec F11 ou le gestionnaire de fenêtre
-        primaryStage.setFullScreenExitKeyCombination(null); // Optionnel : désactive F11 si vous voulez gérer vous-même
-        // OU laissez F11 actif (recommandé) → pas besoin de la ligne ci-dessus
-
-        // 🔑 Rendre la fenêtre redimensionnable une fois sortie du plein écran
+        // Rendre la fenêtre redimensionnable
         primaryStage.setResizable(true);
+        
+        // Optionnel : permettre le plein écran avec F11 si l'utilisateur le souhaite
+        primaryStage.setFullScreenExitKeyCombination(KeyCombination.keyCombination("F11"));
     }
 
     public static void show(String viewName) {

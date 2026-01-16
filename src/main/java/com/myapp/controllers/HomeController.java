@@ -157,6 +157,12 @@ public class HomeController {
             if (btnProfile != null) btnProfile.setVisible(false);
             if (btnAdminPanel != null) btnAdminPanel.setVisible(false);
             
+            // MASQUER le bouton des scores pour les invités
+            if (btnScores != null) {
+                btnScores.setVisible(false);
+                btnScores.setManaged(false);
+            }
+            
             // Masquer complètement la sélection d'utilisateur en mode invité
             hideUserSelection();
             
@@ -169,16 +175,25 @@ public class HomeController {
             // Afficher le panneau admin seulement pour les administrateurs
             boolean isAdmin = currentUser.isAdmin();
             System.out.println("User isAdmin: " + isAdmin);
+            System.out.println("User role: " + currentUser.getRole());
+            System.out.println("User details: " + currentUser.toString());
             
             if (btnAdminPanel != null) {
                 btnAdminPanel.setVisible(isAdmin);
                 btnAdminPanel.setManaged(isAdmin);
                 System.out.println("Admin panel button - visible: " + isAdmin + ", managed: " + isAdmin);
+                
+                // Force l'affichage pour debug
+                if (isAdmin) {
+                    btnAdminPanel.setVisible(true);
+                    btnAdminPanel.setManaged(true);
+                    System.out.println("FORCED admin panel button visibility");
+                }
             } else {
                 System.out.println("ERROR: btnAdminPanel is null!");
             }
             
-            // S'assurer que les boutons essentiels sont toujours visibles pour les admins
+            // S'assurer que les boutons essentiels sont toujours visibles pour les utilisateurs authentifiés
             if (btnScores != null) {
                 btnScores.setVisible(true);
                 btnScores.setManaged(true);
@@ -293,8 +308,11 @@ public class HomeController {
 
     @FXML
     private void onProfile(ActionEvent event) {
-        // TODO: Implémenter la vue de profil utilisateur
-        System.out.println("Profil utilisateur - À implémenter");
+        if (currentUser != null && !isGuestMode) {
+            SceneManager.show("profile");
+        } else {
+            System.err.println("Accès refusé - utilisateur invité ou non connecté");
+        }
     }
 
     @FXML
